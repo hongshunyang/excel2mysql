@@ -243,10 +243,12 @@ def _getColDataFromFile(dataFilePath,settings):
                             print('%s column name is not same with %s' % (filename,_check_fieldname_filename))
                             print('x'*100)
                             print(_check_fieldname_filename)
-                            print(_check_fieldname)
-                            print('x'*100)
                             print(filename)
-                            print(schema_data['field_name'])
+                            print('x'*100)
+                            for i in range(0,len(_check_fieldname)):
+                                print(_check_fieldname[i])
+                                print(schema_data['field_name'][i])
+                                print('-'*10)
                             print('x'*100)
                             sys.exit(1)
                     elif settings['option']=='0':
