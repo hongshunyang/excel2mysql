@@ -1,28 +1,17 @@
 version: '2'
 
-networks:
-  app_net:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-      - subnet: ${NETWORK_SUBNET}
-        gateway: ${NETWORK_GATEWAY}
 services:
   mariadb: 
     build: ./mariadb
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=1234567890
     volumes: 
       - "./container-data/mariadb/_PERSISTENT_/_var_lib_mysql:/var/lib/mysql"
       - "./container-data/mariadb/_PERSISTENT_/_etc_mysql:/etc/mysql"
       - "./container-data/mariadb/INITDB:/docker-entrypoint-initdb.d"
     command: ["mysqld"]
-    networks:
-      app_net:
-        ipv4_address: ${NETWORK_MARIADB_IPV4}
   phpmyadmin:
     image: nerelohw/docker-phpmyadmin
     ports:
@@ -31,6 +20,3 @@ services:
       - mariadb:db
     restart: always
     command: ["phpmyadmin"]
-    networks:
-      app_net:
-        ipv4_address: ${NETWORK_PHPMYADMIN_IPV4}
