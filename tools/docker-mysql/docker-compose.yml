@@ -7,6 +7,7 @@ services:
       - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=1234567890
+      - MYSQL_DATABASE=bio
     volumes: 
       - "./container-data/mariadb/_PERSISTENT_/_var_lib_mysql:/var/lib/mysql"
       - "./container-data/mariadb/_PERSISTENT_/_etc_mysql:/etc/mysql"

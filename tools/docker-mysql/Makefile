@@ -10,7 +10,9 @@ container_mariadb_instance := ${container_name}_mariadb_1
 mariadb_data_dir := container-data/mariadb/_PERSISTENT_/_var_lib_mysql
 mariadb_init_dir := container-data/mariadb/INITDB
 
-
+env_file := .env
+env_db_database := $(shell awk -F '=' '$$1=="MYSQL_DATABASE" {print $$2}' ${env_file})
+env_db_password := $(shell awk -F '=' '$$1=="MYSQL_ROOT_PASSWORD" {print $$2}' ${env_file})
 
 
 define exec_cmd_result
@@ -78,7 +80,7 @@ sync_db:
 	${SED} -i "1iDROP DATABASE IF EXISTS ${env_db_database};" ${env_db_database}.sql
 	${SED} -i "2iCREATE DATABASE IF NOT EXISTS ${env_db_database};" ${env_db_database}.sql
 	${SED} -i "3iUSE ${env_db_database};" ${env_db_database}.sql
-	mv ${env_db_database}.sql ${mariadb_init_dir}
+	mv ${env_db_database}.sql ${mariadb_init_dir}/
 sync:
 	@echo 'make sure all dockers run'
 	-make sync_db
