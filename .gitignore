@@ -3,7 +3,7 @@
 data
 result
 backup
-tools/docker-mysql/container-data/mariadb/_PERSISTENT_/_var_lib_mysql/
+tools/docker-mysql/container-data/mariadb/
 
 # 忽略 .a 文件
 # *.a
